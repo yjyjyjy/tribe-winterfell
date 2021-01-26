@@ -11,8 +11,10 @@
   "author": "Junyu Yang (github.com/yjyjyjy)",
   "license": "MIT",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.10.0",
     "config": "^3.3.3",
     "express": "^4.17.1",
+    "express-validator": "^6.9.2",
     "request": "^2.88.2"
   },
   "devDependencies": {
