@@ -6,9 +6,13 @@ const request = require("request");
 const citadelClient = require("../../config/citadel");
 const axios = require("axios");
 
+const { Client } = require("@elastic/elasticsearch");
+const client = new Client({ node: "http://localhost:9200" });
+
 // query citadel (Elastic Search Cluster)
 router.get("/", async (req, res) => {
   try {
+    console.log("🚀🚀🚀🚀 HERE ");
     // const result = await citadelClient.search({
     //   index: "jobs",
     //   body: {
@@ -52,32 +56,59 @@ router.get("/", async (req, res) => {
     //   res.send(response);
     // });
 
-    request(
-      "http://localhost:9200/_search",
-      {
-        "query": {
-          "multi_match" : {
-            "query":    "jobs", 
-            "fields": [ "text" ] 
-          }
-        }
-      },
-      (error, response, body) => {
-        // res.json(response)
+    // Let's start by indexing some data
+    // await client.index({
+    //   index: 'game-of-thrones',
+    //   // type: '_doc', // uncomment this line if you are using Elasticsearch ≤ 6
+    //   body: {
+    //     character: 'Ned Stark',
+    //     quote: 'Winter is coming.'
+    //   }
+    // })
 
-        if (error) {
-          console.log("🚀🚀🚀🚀 error ");
-          console.log(error);
-        }
-        if (response.statusCode !== 200) {
-          console.log("🚀🚀🚀🚀 statusCode ");
-          console.log(response);
-          return res.status(404).json({ msg: "No Github profile found!" });
-        }
-        console.log("🚀🚀🚀🚀 pass ");
-        res.json(JSON.parse(body));
-      }
-    );
+    const { body } = await client.search({
+      // index: 'jobs_wiki',
+      // type: '_doc', // uncomment this line if you are using Elasticsearch ≤ 6
+      body: {
+        query: {
+          multi_match: {
+            query: "boom",
+            fields: ["text"],
+          },
+        },
+      },
+    });
+
+    // console.log(body.hits.hits);
+    console.log("GOGOGOGO")
+    res.json(body.hits.hits);
+
+    // request(
+    //   "http://localhost:9200/_search",
+    //   {
+    //     query: {
+    //       multi_match: {
+    //         query: "jobs",
+    //         fields: ["text"],
+    //       },
+    //     },
+    //   },
+    //   (error, response, body) => {
+    //     // res.json(response)
+
+    //     if (error) {
+    //       console.log("🚀🚀🚀🚀 error ");
+    //       console.log(error);
+    //     }
+    //     if (response.statusCode !== 200) {
+    //       console.log("🚀🚀🚀🚀 statusCode ");
+    //       console.log(response);
+    //       return res.status(404).json({ msg: "No Github profile found!" });
+    //     }
+    //     console.log("🚀🚀🚀🚀 pass ");
+    //     res.json(JSON.parse(body));
+    //   }
+    // );
   } catch (err) {
     console.log(err);
     // res.json(err);
@@ -85,3 +116,16 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+  // Let's start by indexing some data
+  // await client.index({
+  //   index: 'game-of-thrones',
+  //   // type: '_doc', // uncomment this line if you are using Elasticsearch ≤ 6
+  //   body: {
+  //     character: 'Ned Stark',
+  //     quote: 'Winter is coming.'
+  //   }
+  // })
