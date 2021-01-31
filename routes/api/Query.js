@@ -1,33 +1,45 @@
 const express = require("express");
 const router = express.Router();
 // const auth = require("../../middleware/auth");
-// const { check, validationResult } = require("express-validator");
+const { check, validationResult } = require("express-validator");
 // const request = require("request");
 const citadelClient = require("../../config/citadel");
 
 // query citadel (Elastic Search Cluster)
-router.get("/", async (req, res) => {
-  try {
-    console.log("🚀🚀🚀🚀 HERE ");
-    const { body } = await citadelClient.search({
-      index: "jobs",
-      body: {
-        query: {
-          multi_match: {
-            query: "split pipeline jymbii",
-            fields: ["name", "text"],
-          },
-        },
-        _source: ["name", "owners.displayName", "text"],
-      },
-    });
-    
-    res.json(body.hits.hits);
+router.get(
+  "/",
+  [[check("queryString", "queryString is required").not().isEmpty()]],
+  async (req, res) => {
+    // check if queryString is empty
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  } catch (err) {
-    console.log(err);
+    try {
+      const { queryString } = req.body;
+      console.log("🔭🔭🔭 Searching: " + queryString);
+
+      const { body } = await citadelClient.search({
+        // index: "jobs",
+        body: {
+          query: {
+            multi_match: {
+              query: queryString,
+              fields: ["name", "text"],
+            },
+          },
+          _source: ["name", "owners.displayName", "text"],
+        },
+      });
+
+      res.json(body.hits.hits);
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 module.exports = router;
 
