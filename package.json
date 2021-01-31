@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "yarn --cwd kingslanding start",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
   },
   "repository": "git@github.com:yjyjyjy/tribe-winterfell.git",
   "author": "Junyu Yang (github.com/yjyjyjy)",
