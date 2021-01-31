@@ -6,9 +6,9 @@ const { check, validationResult } = require("express-validator");
 const citadelClient = require("../../config/citadel");
 
 // query citadel (Elastic Search Cluster)
-router.get(
+router.post(
   "/",
-  [[check("queryString", "queryString is required").not().isEmpty()]],
+  // [[check("queryString", "queryString is required").not().isEmpty()]],
   async (req, res) => {
     // check if queryString is empty
     const errors = validationResult(req);
@@ -18,6 +18,9 @@ router.get(
     }
 
     try {
+      console.log("SERVER END BEING HITTT ⛑⛑⛑⛑⛑");
+      console.log(req.body);
+
       const { queryString } = req.body;
       console.log("🔭🔭🔭 Searching: " + queryString);
 
