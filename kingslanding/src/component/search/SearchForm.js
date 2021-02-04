@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import { searchQuery } from "../../action/search";
+import { searchQuery } from "../../actions/search";
 
 const SearchForm = (props) => {
   const [formData, setFormDData] = useState({
