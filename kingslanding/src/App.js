@@ -6,16 +6,21 @@ import Search from "./component/search/Search";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
+import Landing from "./component/layout/Landing";
 
 const App = () => (
   <Provider store={store}>
-    <Fragment>
-      <Router>
+    <Router>
+      <Fragment>
+        {/* Navbar here */}
         <Switch>
-          <Route exact path="/search" component={Search} />
+          <Route exact path="/" component={Landing} />
+          <section className="container">
+            <Route exact path="/search" component={Search} />
+          </section>
         </Switch>
-      </Router>
-    </Fragment>
+      </Fragment>
+    </Router>
   </Provider>
 );
 export default App;
