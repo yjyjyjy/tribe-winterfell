@@ -36,8 +36,18 @@ router.post(
           _source: ["name", "owners.displayName", "text"],
         },
       });
-
-      res.json(body.hits.hits);
+      let searchResult = [];
+      if (body.hits.hits.length > 0) {
+        console.log("🔥");
+        searchResult = body.hits.hits.map((hit) => ({
+          title: hit._source.name,
+          text: hit._source.text,
+          score: hit._score,
+          source: hit._index,
+          url: hit._id,
+        }));
+      }
+      res.json(searchResult);
     } catch (err) {
       console.log(err);
     }

@@ -1,2 +1,3 @@
-// query
+// search
 export const SEARCH_LAUNCH = "SEARCH_LAUNCH";
+export const UPDATE_SEARCH_RESULT = "UPDATE_SEARCH_RESULT";
