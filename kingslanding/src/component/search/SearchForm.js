@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { searchQuery } from "../../actions/search";
+import { connect } from "react-redux";
 
-const SearchForm = (props) => {
+const SearchForm = ({ searchQuery }) => {
   const [formData, setFormDData] = useState({
     queryString: "",
   });
@@ -36,6 +37,8 @@ const SearchForm = (props) => {
   );
 };
 
-SearchForm.propTypes = {};
+SearchForm.propTypes = {
+  searchQuery: PropTypes.func.isRequired,
+};
 
-export default SearchForm;
+export default connect(null, { searchQuery })(SearchForm);
