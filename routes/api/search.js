@@ -38,7 +38,7 @@ router.post(
       });
       let searchResult = [];
       if (body.hits.hits.length > 0) {
-        console.log("🔥");
+        console.log("result hit 🔥");
         searchResult = body.hits.hits.map((hit) => ({
           title: hit._source.name,
           text: hit._source.text,
