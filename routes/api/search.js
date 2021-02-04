@@ -8,9 +8,9 @@ const citadelClient = require("../../config/citadel");
 // query citadel (Elastic Search Cluster)
 router.post(
   "/",
-  // [[check("queryString", "queryString is required").not().isEmpty()]],
+  // [[check("searchString", "searchString is required").not().isEmpty()]],
   async (req, res) => {
-    // check if queryString is empty
+    // check if searchString is empty
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors);
@@ -21,15 +21,15 @@ router.post(
       console.log("SERVER END BEING HITTT ⛑⛑⛑⛑⛑");
       console.log(req.body);
 
-      const { queryString } = req.body;
-      console.log("🔭🔭🔭 Searching: " + queryString);
+      const { searchString } = req.body;
+      console.log("🔭🔭🔭 Searching: " + searchString);
 
       const { body } = await citadelClient.search({
         // index: "jobs",
         body: {
           query: {
             multi_match: {
-              query: queryString,
+              query: searchString,
               fields: ["name", "text"],
             },
           },

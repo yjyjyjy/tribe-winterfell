@@ -1,7 +1,7 @@
 import { SEARCH_LAUNCH } from "../actions/constants";
 
 const initialState = {
-  queryString: "",
+  searchString: "",
 };
 
 export default function (state = initialState, action) {
@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
       console.log("SEARCH_LAUNCH");
       return {
         ...state,
-        queryString: payload.queryString,
+        searchString: payload.searchString,
       };
     default:
       console.log("default");

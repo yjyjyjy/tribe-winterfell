@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 
 const SearchForm = ({ searchQuery }) => {
   const [formData, setFormDData] = useState({
-    queryString: "",
+    searchString: "",
   });
-  const { queryString } = formData;
+  const { searchString } = formData;
   const onChangeHandler = (e) => {
     setFormDData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,8 +25,8 @@ const SearchForm = ({ searchQuery }) => {
           <input
             type="text"
             placeholder="Search here..."
-            name="queryString"
-            value={queryString}
+            name="searchString"
+            value={searchString}
             onChange={(e) => onChangeHandler(e)}
             required
           />

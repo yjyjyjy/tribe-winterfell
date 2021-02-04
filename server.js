@@ -5,7 +5,7 @@ const app = express();
 // a new way to do bodyParser
 app.use(express.json({ extended: false }));
 
-app.use("/api/query", require("./routes/api/query"));
+app.use("/api/search", require("./routes/api/search"));
 
 const PORT = process.env.PORT || 5000;
 

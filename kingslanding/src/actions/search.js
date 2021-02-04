@@ -2,13 +2,10 @@ import axios from "axios";
 import { SEARCH_LAUNCH } from "./constants";
 
 export const searchQuery = (searchFormData) => async (dispatch) => {
-  // const { queryString } = searchFormData;
-  // console.log(queryString);
+  // const { searchString } = searchFormData;
   try {
-    console.log("SEARCHING HERE:");
-
     dispatch({ type: SEARCH_LAUNCH, payload: searchFormData });
-    const result = await axios.post("/api/query", searchFormData);
+    const result = await axios.post("/api/search", searchFormData);
     console.log(result);
   } catch (err) {}
 };

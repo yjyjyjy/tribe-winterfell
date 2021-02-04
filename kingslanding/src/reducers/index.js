@@ -3,6 +3,6 @@ import { combineReducers } from "redux";
 // import auth from "./auth";
 // import profile from "./profile";
 // import post from "./post";
-import query from "./query";
+import search from "./search";
 
-export default combineReducers({ query });
+export default combineReducers({ search });
